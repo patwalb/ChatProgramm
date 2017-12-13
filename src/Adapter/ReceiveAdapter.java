@@ -1,6 +1,6 @@
 package Adapter;
 
-import OhmLogger.OhmLogger;
+import MyLogger.MyLogger;
 import Transmitter.Transmitter;
 import View.ChatView;
 import java.util.Observable;
@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public class ReceiveAdapter implements Observer
 {
-    private static Logger lg = OhmLogger.getLogger();
+    private static Logger lg = MyLogger.getLogger();
     
     private ChatView view;
     private Transmitter transmitter;

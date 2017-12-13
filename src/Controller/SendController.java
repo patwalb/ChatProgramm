@@ -1,6 +1,6 @@
 package Controller;
 
-import OhmLogger.OhmLogger;
+import MyLogger.MyLogger;
 import Transmitter.Transmitter;
 import View.ChatView;
 import java.awt.event.ActionEvent;
@@ -13,7 +13,7 @@ public class SendController implements ActionListener
     private ChatView view;
     private Transmitter transmitter;
 
-    private static Logger lg = OhmLogger.getLogger();
+    private static Logger lg = MyLogger.getLogger();
 
     public SendController(ChatView view, Transmitter transmitter)
     {

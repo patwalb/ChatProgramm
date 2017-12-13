@@ -1,6 +1,6 @@
 package Transmitter;
 
-import OhmLogger.OhmLogger;
+import MyLogger.MyLogger;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class Transmitter extends Observable implements Runnable
 {
 
-    private static Logger lg = OhmLogger.getLogger();
+    private static Logger lg = MyLogger.getLogger();
     private static final int PORT = 35000;
     private String ipAddress;
     private boolean isServer;

@@ -2,7 +2,7 @@ package ChatprogrammTextuell;
 
 import Controller.ConnectController;
 import Controller.SendController;
-import OhmLogger.OhmLogger;
+import MyLogger.MyLogger;
 import Transmitter.Transmitter;
 import View.ChatView;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class Start
 {
-    private static Logger lg = OhmLogger.getLogger();
+    private static Logger lg = MyLogger.getLogger();
     public Start()
     {
         ChatView view = new ChatView();
