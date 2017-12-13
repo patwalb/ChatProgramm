@@ -9,38 +9,43 @@ import java.util.logging.Logger;
 
 public class ConnectController implements ActionListener
 {
-  private ChatView view;
-  private Transmitter transmitter;
-  
-  private static Logger lg = OhmLogger.getLogger();
-  
-  public ConnectController(ChatView view, Transmitter transmitter)
-  {
-    this.view = view;
-    this.transmitter = transmitter;
 
-  }
-  
-  public void registerEvents()
-  {
-    view.getBtnServer().addActionListener(this);
-    view.getBtnClient().addActionListener(this);
-  }
+    private ChatView view;
+    private Transmitter transmitter;
 
-  @Override
-  public void actionPerformed(ActionEvent e)
-  {
-    if(e.getSource() == view.getBtnServer())
+    private static Logger lg = OhmLogger.getLogger();
+
+    public ConnectController(ChatView view, Transmitter transmitter)
     {
-      //tell transmitter to be Server
+        this.view = view;
+        this.transmitter = transmitter;
+
     }
-    else if(e.getSource() == view.getBtnClient())
+
+    public void registerEvents()
     {
-      //tell transmitter to be Client 
+        view.getBtnServerMode().addActionListener(this);
+        view.getBtnClientMode().addActionListener(this);
     }
-    else
+
+    @Override
+    public void actionPerformed(ActionEvent e)
     {
-      lg.warning("Weder Server noch Client gewählt");
+        if (e.getSource() == view.getBtnServerMode())
+        {
+            //tell transmitter to be Server
+            view.getBtnServerMode().setEnabled(false);
+            view.getBtnClientMode().setEnabled(false);
+        }
+        else if (e.getSource() == view.getBtnClientMode())
+        {
+            //tell transmitter to be Client
+            view.getBtnServerMode().setEnabled(false);
+            view.getBtnClientMode().setEnabled(false);
+        }
+        else
+        {
+            lg.warning("Weder Server noch Client gewählt");
+        }
     }
-  }
 }
