@@ -19,7 +19,8 @@ public class Transmitter extends Observable implements Runnable
 
     private static Logger lg = OhmLogger.getLogger();
     private static final int PORT = 35000;
-    private static final String IP_ADRESSE = "127.0.0.1";
+    private String ipAddress;
+    private boolean isServer;
 
     public Transmitter() throws IOException
     {
@@ -73,6 +74,13 @@ public class Transmitter extends Observable implements Runnable
     public void sendNachricht(String message)
     {
 
+    }
+    
+    public void setIdentity(boolean isServer, String ipAdress)
+    {
+        this.isServer = isServer;
+        this.ipAddress = ipAdress;
+        lg.info("I am a Server :" + isServer +" I want to communicate with: " + ipAdress);
     }
 
 }

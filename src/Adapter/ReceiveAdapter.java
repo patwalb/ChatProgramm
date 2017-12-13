@@ -9,11 +9,10 @@ import java.util.logging.Logger;
 
 public class ReceiveAdapter implements Observer
 {
-
+    private static Logger lg = OhmLogger.getLogger();
+    
     private ChatView view;
     private Transmitter transmitter;
-
-    private static Logger lg = OhmLogger.getLogger();
 
     public ReceiveAdapter(ChatView view, Transmitter transmitter)
     {

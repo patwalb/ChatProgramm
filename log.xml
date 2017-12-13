@@ -1,0 +1,16 @@
+| 2017/12/13 20:26:47 | INFO | Controller.ConnectController actionPerformed | Als Server registriert
+| 2017/12/13 20:28:21 | INFO | Controller.ConnectController actionPerformed | Als Server registriert
+| 2017/12/13 20:29:46 | INFO | Controller.ConnectController actionPerformed | Als Client registriert. Kommuniziere mit IP 127.0.0.1
+| 2017/12/13 20:29:55 | INFO | Controller.ConnectController actionPerformed | Als Client registriert. Kommuniziere mit IP 127.0.0.144
+| 2017/12/13 20:34:33 | INFO | Controller.ConnectController actionPerformed | Als Client registriert. Kommuniziere mit IP 127.0.0.1
+| 2017/12/13 20:36:0 | INFO | Transmitter.Transmitter setIdentity | I am a Server :true
+ I want to communicate with: 127.0.0.1
+| 2017/12/13 20:36:0 | INFO | Controller.ConnectController actionPerformed | Als Server registriert. Kommuniziere mit IP 127.0.0.1
+| 2017/12/13 20:36:27 | INFO | Transmitter.Transmitter setIdentity | I am a Server :false
+ I want to communicate with: 127.0.0.1
+| 2017/12/13 20:36:27 | INFO | Controller.ConnectController actionPerformed | Als Client registriert. Kommuniziere mit IP 127.0.0.1
+| 2017/12/13 20:36:34 | INFO | Transmitter.Transmitter setIdentity | I am a Server :false
+ I want to communicate with: 127.0.0.1333
+| 2017/12/13 20:36:34 | INFO | Controller.ConnectController actionPerformed | Als Client registriert. Kommuniziere mit IP 127.0.0.1333
+| 2017/12/13 20:38:9 | INFO | Transmitter.Transmitter setIdentity | I am a Server :false I want to communicate with: 127.0.0.1
+| 2017/12/13 20:38:9 | INFO | Controller.ConnectController actionPerformed | Als Client registriert. Kommuniziere mit IP 127.0.0.1

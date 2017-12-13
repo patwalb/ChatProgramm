@@ -19,7 +19,6 @@ public class ConnectController implements ActionListener
     {
         this.view = view;
         this.transmitter = transmitter;
-
     }
 
     public void registerEvents()
@@ -34,14 +33,18 @@ public class ConnectController implements ActionListener
         if (e.getSource() == view.getBtnServerMode())
         {
             //tell transmitter to be Server
+            transmitter.setIdentity(true, view.getTfIP().getText());
             view.getBtnServerMode().setEnabled(false);
             view.getBtnClientMode().setEnabled(false);
+            view.getTfIP().setEditable(false);
         }
         else if (e.getSource() == view.getBtnClientMode())
         {
             //tell transmitter to be Client
+            transmitter.setIdentity(false, view.getTfIP().getText());
             view.getBtnServerMode().setEnabled(false);
             view.getBtnClientMode().setEnabled(false);
+            view.getTfIP().setEditable(false);
         }
         else
         {
