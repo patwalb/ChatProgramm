@@ -29,8 +29,7 @@ public class SendController implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        String message = view.getTfSend().getText();
         // tell transmitter to send this message
-        transmitter.sendNachricht(message);
+        transmitter.sendNachricht(view.getTfSend().getText());
     }
 }

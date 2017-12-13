@@ -73,7 +73,8 @@ public class Transmitter extends Observable implements Runnable
 
     public void sendNachricht(String message)
     {
-
+        lg.info("Habe folgende Nachricht zum Senden bekommen: ");
+        lg.info("\"" + message + "\"");
     }
     
     public void setIdentity(boolean isServer, String ipAdress)
