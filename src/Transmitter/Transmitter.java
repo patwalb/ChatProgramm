@@ -8,80 +8,116 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import static java.lang.System.out;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Observable;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Transmitter extends Observable implements Runnable
 {
 
     private static Logger lg = MyLogger.getLogger();
-    private static final int PORT = 35000;
-    private String ipAddress;
-    private boolean isServer;
+    private BufferedReader in;
+    private PrintWriter out;
+    private Thread t;
 
     public Transmitter() throws IOException
     {
-//    //Empfänger
-//    
-//    Socket s = new Socket(IP_ADRESSE, PORT); // Achtung blockiert
-//    lg.info("Client: Verbindung hergestellt");
-//    
-//    out.println("Hallo Du Server: Du ich bin der Client");
-//    out.flush(); //wirklich absenden
-//    
-//    //ende empfänger änderungen 
-//    
-//    ServerSocket sSocket = new ServerSocket(PORT);
-//    lg.info("Server: Warte auf Verbindung");
-// //   Socket s = sSocket.accept(); // Achtung blockiert; sollte in Thread
-//    lg.info("Server: Verbindung akkzeptiert");
-//    InputStream iStream = s.getInputStream();
-//    OutputStream oStream = s.getOutputStream();
-//    
-//    InputStreamReader isr = new InputStreamReader(iStream, "UTF-8");
-//    OutputStreamWriter osr = new OutputStreamWriter(oStream, "UTF-8");
-//    
-//    BufferedReader in = new BufferedReader(isr);
-//    PrintWriter out = new PrintWriter(osr);
-//    lg.info("Server: Stream initialisiert");
-//    lg.info("Server: Warte auf Nachricht");
-//    
-//    String nachricht = in.readLine(); //Achtung blockiert
-//    lg.info("Server: Nachricht empfangen");
-//    
-//    System.out.println("Server: Nachricht empfangen:" + nachricht);
-//    
-//    out.println("Server: ich habe die Nachricht erhalten");
-//    lg.info("Server: Quittung versendet");
-//    out.flush(); //wirklich absenden
-//    out.close();
-//    in.close();
+        in = null;
+        out = null;
+    }
+
+    public void getMessage()
+    {
+        String message = null;
+        {
+            lg.info("Server: Waiting for message ...");
+
+            try
+            {
+                message = in.readLine();
+            }
+            catch (IOException ex)
+            {
+                lg.severe("IOException: " + ex.toString());
+            }
+        }
+        synchronized (this)
+        {
+            if (message == null)
+            {
+                try
+                {
+                    wait();
+                }
+                catch (InterruptedException ex)
+                {
+                    Logger.getLogger(Transmitter.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        message = "Stranger: " + message;
+
+        if (countObservers() > 0)
+        {
+            setChanged();
+            notifyObservers(message);
+        }
+
+    }
+
+    public void sendMessage(String message) throws IOException
+    {
+        lg.info("Got message to send: ");
+        lg.info("\"" + message + "\"");
+
+        out.println(message);
+        out.flush();
+        lg.info("message sended");
+
+        if (countObservers() > 0)
+        {
+            message = "Me: " + message;
+            setChanged();
+            notifyObservers(message);
+        }
     }
 
     @Override
     public void run()
     {
+        System.out.println("Starting Thread ");
+
+        while (true)
+        {
+            getMessage();
+        }
     }
 
-    public String getNachricht()
+    public void start()
     {
-        return "";
+        if (t == null)
+        {
+            t = new Thread(this);
+            t.start();
+        }
     }
 
-    public void sendNachricht(String message)
+    public void initSocket(Socket socket)
     {
-        lg.info("Habe folgende Nachricht zum Senden bekommen: ");
-        lg.info("\"" + message + "\"");
+        try
+        {
+            InputStream iStream = socket.getInputStream();
+            InputStreamReader isr = new InputStreamReader(iStream, "UTF-8"); // byte in character strom
+            in = new BufferedReader(isr);
+            
+            OutputStream oStream = socket.getOutputStream();
+            OutputStreamWriter osr = new OutputStreamWriter(oStream, "UTF-8");
+            out = new PrintWriter(osr);//printwriter hat println und print lf im gegensatz zum buffered writer 
+        }
+        catch (IOException ex)
+        {
+            lg.severe("IOException: " + ex.toString());
+        }
     }
-    
-    public void setIdentity(boolean isServer, String ipAdress)
-    {
-        this.isServer = isServer;
-        this.ipAddress = ipAdress;
-        lg.info("I am a Server :" + isServer +" I want to communicate with: " + ipAdress);
-    }
-
 }

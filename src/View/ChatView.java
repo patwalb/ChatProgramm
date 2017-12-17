@@ -80,6 +80,7 @@ public class ChatView extends javax.swing.JFrame
 
         getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
 
+        taReceive.setEditable(false);
         taReceive.setColumns(20);
         taReceive.setRows(5);
         jScrollPane3.setViewportView(taReceive);
@@ -94,6 +95,7 @@ public class ChatView extends javax.swing.JFrame
         tfSend.setAlignmentX(0.1F);
         sendPanel.add(tfSend);
 
+        btnSend.setMnemonic('s');
         btnSend.setText("Send!");
         btnSend.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         sendPanel.add(btnSend);

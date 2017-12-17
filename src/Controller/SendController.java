@@ -5,15 +5,15 @@ import Transmitter.Transmitter;
 import View.ChatView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.logging.Logger;
 
 public class SendController implements ActionListener
 {
 
+    private static Logger lg = MyLogger.getLogger();
     private ChatView view;
     private Transmitter transmitter;
-
-    private static Logger lg = MyLogger.getLogger();
 
     public SendController(ChatView view, Transmitter transmitter)
     {
@@ -29,7 +29,15 @@ public class SendController implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        // tell transmitter to send this message
-        transmitter.sendNachricht(view.getTfSend().getText());
+        try
+        {
+            transmitter.sendMessage(view.getTfSend().getText());
+            view.getTfSend().setText("");
+            view.getTfSend().requestFocus();
+        }
+        catch (IOException ex)
+        {
+            lg.severe("IOException: " + ex.toString());
+        }
     }
 }

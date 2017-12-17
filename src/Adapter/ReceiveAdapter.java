@@ -9,8 +9,8 @@ import java.util.logging.Logger;
 
 public class ReceiveAdapter implements Observer
 {
+
     private static Logger lg = MyLogger.getLogger();
-    
     private ChatView view;
     private Transmitter transmitter;
 
@@ -23,9 +23,7 @@ public class ReceiveAdapter implements Observer
     @Override
     public void update(Observable o, Object arg)
     {
-        //hole nachricht aus transmitter (=model)
-        String nachricht = transmitter.getNachricht();
-        //zeige Nachricht an
-        view.getTaReceive().append(nachricht);
+        String receivedMessage = (String) arg;
+        view.getTaReceive().append(receivedMessage + "\n");
     }
 }
