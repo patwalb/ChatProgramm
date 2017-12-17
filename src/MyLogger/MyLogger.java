@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package MyLogger;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,9 +13,12 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ *
+ * @author PW
+ */
 public class MyLogger
 {
-
     private static Logger s_lLg = null;
 
     private MyLogger() //private constructor according to singleton design pattern
@@ -46,7 +45,11 @@ public class MyLogger
 
         try // open config file
         {
-            isInputStream = new FileInputStream(strProjectPath + "/src/MyLogger/config/Logger.properties");
+            isInputStream = new FileInputStream(strProjectPath + 
+                                     File.separator + "src" + 
+                                     File.separator + "MyLogger" + 
+                                     File.separator + "config" + 
+                                     File.separator + "Logger.properties");
         } catch (FileNotFoundException ex)
         {
             System.out.println("Logger: " + ex.toString());
@@ -80,7 +83,7 @@ public class MyLogger
             }
         } catch (NullPointerException e)
         {
-            System.out.println("Logger: No Handler found. Maybe wrong option of logType in Logger.properties?");
+            System.out.println("Logger: No Handler found. Maybe wrong options logType in Logger.properties?");
         }
     }
 
